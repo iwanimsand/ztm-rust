@@ -21,15 +21,15 @@ use std::i8;
 #[derive(Debug)]
 struct Adult {
     name: String,
-    age: i8,
+    age: u8,
 }
 
 impl Adult {
-    fn new(name: String, age: i8) -> Result<Self, String> {
+    fn new(name: String, age: u8) -> Result<Self, String> {
         if age >= 21 {
             return Ok(Self { name, age });
         } else {
-            return Err("An adult must be 21 or older.".to_owned());
+            return Err("Age must be at least 21".to_owned());
         }
     }
 }
@@ -37,14 +37,14 @@ impl Adult {
 fn print(result: Result<Adult, String>) {
     match result {
         Ok(adult) => println!("{:?}", adult),
-        Err(e) => println!("{:?}", e)
+        Err(e) => println!("{:?}", e),
     };
 }
 
 fn main() {
     let bob = Adult::new(String::from("Bob"), 18);
     let alice = Adult::new("Alice".to_owned(), 25);
-    
+
     print(bob);
     print(alice);
 }
