@@ -98,28 +98,13 @@ fn authorize(
 ) -> Result<AuthorizationStatus, String> {
     // put your code here
 
-    let connected = Database::connect();
-    match connected {
-        Ok(db) => {
-            let employee_found = db.find_employee(&employee_name);
-            match employee_found {
-                Ok(employee) => {
-                    let keycard_found = db.get_keycard(&employee);
-                    match keycard_found {
-                        Ok(keycard) => {
-                            if keycard.access_level > location.required_access_level() {
-                                return Ok(AuthorizationStatus::Allow);
-                            } else {
-                                return Ok(AuthorizationStatus::Deny);
-                            }
-                        }
-                        Err(e) => return Err(e),
-                    }
-                }
-                Err(e) => return Err(e),
-            }
-        }
-        Err(e) => return Err(e),
+    let db = Database::connect()?;
+    let employee = db.find_employee(&employee_name)?;
+    let keycard = db.get_keycard(&employee)?;
+    if keycard.access_level > location.required_access_level() {
+        return Ok(AuthorizationStatus::Allow);
+    } else {
+        return Ok(AuthorizationStatus::Deny);
     }
 }
 
