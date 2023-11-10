@@ -16,4 +16,35 @@
 //   * For the Ok variant, print any message you want
 //   * For the Err variant, print out the error message
 
-fn main() {}
+use std::i8;
+
+#[derive(Debug)]
+struct Adult {
+    name: String,
+    age: i8,
+}
+
+impl Adult {
+    fn new(name: String, age: i8) -> Result<Self, String> {
+        if age >= 21 {
+            return Ok(Self { name, age });
+        } else {
+            return Err("An adult must be 21 or older.".to_owned());
+        }
+    }
+}
+
+fn print(result: Result<Adult, String>) {
+    match result {
+        Ok(adult) => println!("{:?}", adult),
+        Err(e) => println!("{:?}", e)
+    };
+}
+
+fn main() {
+    let bob = Adult::new(String::from("Bob"), 18);
+    let alice = Adult::new("Alice".to_owned(), 25);
+    
+    print(bob);
+    print(alice);
+}
