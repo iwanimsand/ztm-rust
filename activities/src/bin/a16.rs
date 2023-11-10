@@ -20,14 +20,16 @@ impl Student {
 
     fn print(&self) {
         match self.locker {
-            Some(num) => println!("locker number: {:?}", num),
-            None => println!("no locker assigend"),
+            Some(num) => println!("name: {:?}, locker number: {:?}", self.name, num),
+            None => println!("name: {:?}, no locker assigend", self.name),
         }
     }
 }
 
 fn main() {
     let mary = Student::new("Mary".to_owned(), Some(3));
+    let bob = Student::new("Bob".to_owned(), None);
 
     mary.print();
+    bob.print();
 }
