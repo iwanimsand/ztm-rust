@@ -26,7 +26,7 @@ fn main() {
     for (item, qty) in stock.iter() {
         total_stock = total_stock + qty;
 
-        let stock_count = if *qty == 0 {
+        let stock_count = if qty == &0 {
             "out of stock".to_owned()
         } else {
             format!("{:?}", qty)
