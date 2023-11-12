@@ -35,8 +35,8 @@ enum PowerState {
 }
 
 impl PowerState {
-    fn from_string(text: &str) -> Option<PowerState> {
-        match text.to_lowercase().trim() {
+    fn new(state: &str) -> Option<PowerState> {
+        match state.trim().to_lowercase().as_str() {
             "off" => Some(PowerState::Off),
             "sleep" => Some(PowerState::Sleep),
             "reboot" => Some(PowerState::Reboot),
@@ -46,13 +46,14 @@ impl PowerState {
         }
     }
 
-    fn execute(power_state: PowerState) {
+    fn print_power_action(power_state: PowerState) {
+        use PowerState::*;
         match power_state {
-            PowerState::Off => println!("turning off"),
-            PowerState::Sleep => println!("entering sleep mode"),
-            PowerState::Reboot => println!("initiating reboot"),
-            PowerState::Shutdown => println!("shutting down"),
-            PowerState::Hibernate => println!("going into hibernate mode"),
+            Off => println!("turning off"),
+            Sleep => println!("entering sleep mode"),
+            Reboot => println!("initiating reboot"),
+            Shutdown => println!("shutting down"),
+            Hibernate => println!("going into hibernate mode"),
         }
     }
 }
@@ -61,16 +62,14 @@ fn main() {
     println!("Enter a state:");
 
     let mut buffer = String::new();
-    let result = io::stdin().read_line(&mut buffer);
-    match result {
-        Ok(_) => {
-            let power_state = PowerState::from_string(&buffer);
-            match power_state {
-                Some(power_state) => PowerState::execute(power_state),
-                None => println!("I'm not familiar with that state"),
-            }
+    let user_input_status = io::stdin().read_line(&mut buffer);
+    if user_input_status.is_ok() {
+        match PowerState::new(&buffer) {
+            Some(power_state) => PowerState::print_power_action(power_state),
+            None => println!("invalid power state"),
         }
-        Err(e) => println!("{:?}", e),
+    } else {
+        println!("error reading input");
     }
 }
 
@@ -80,7 +79,7 @@ mod test {
 
     #[test]
     fn test_from_string() {
-        let result = PowerState::from_string("OFF");
+        let result = PowerState::new("OFF");
         let expected = Some(PowerState::Off);
         assert_eq!(expected, result);
     }
