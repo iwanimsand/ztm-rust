@@ -9,5 +9,5 @@ edition = "2018"
 chrono = "0.4.31"
 
 [lib]
-name = "activitylib"
+name = "activity"
 path = "src/activitylib/mod.rs"

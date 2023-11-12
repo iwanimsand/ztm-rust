@@ -19,9 +19,9 @@
 fn main() {
     // Part 1: math functions
     let result = {
-        let two_plus_two = activitylib::math::arithmetic::add(2, 2);
-        let three = activitylib::math::arithmetic::sub(two_plus_two, 1);
-        activitylib::math::factorial::mul(three, three)
+        let two_plus_two = activity::math::arithmetic::add(2, 2);
+        let three = activity::math::arithmetic::sub(two_plus_two, 1);
+        activity::math::factorial::mul(three, three)
     };
 
     // Ensure we have a correct result.
@@ -29,7 +29,7 @@ fn main() {
     println!("(2 + 2 - 1) * 3 = {}", result);
 
     {
-        use activitylib::msg::*;
+        use activity::msg::{capitalize, exciting, trim};
 
         // Part 2: string functions
         let hello = {
