@@ -10,4 +10,4 @@ chrono = "0.4.31"
 
 [lib]
 name = "activity"
-path = "src/activitylib/mod.rs"
+path = "src/activitylib/activity.rs"
