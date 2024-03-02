@@ -27,10 +27,10 @@ enum Color {
 #[derive(Debug)]
 struct ShirtColor(Color);
 impl ShirtColor {
-    fn new (color: Color) -> Result<Self, String> {
+    fn new(color: Color) -> Result<Self, String> {
         match color {
             Color::Purple => Err("purple not allowed".to_owned()),
-            other => Ok(Self(other))
+            other => Ok(Self(other)),
         }
     }
 }
@@ -38,7 +38,7 @@ impl ShirtColor {
 #[derive(Debug)]
 struct ShoesColor(Color);
 impl ShoesColor {
-    fn new (color: Color) -> Self {
+    fn new(color: Color) -> Self {
         Self(color)
     }
 }
@@ -46,7 +46,7 @@ impl ShoesColor {
 #[derive(Debug)]
 struct PantsColor(Color);
 impl PantsColor {
-    fn new (color: Color) -> Self {
+    fn new(color: Color) -> Self {
         Self(color)
     }
 }

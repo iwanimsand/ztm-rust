@@ -1,5 +1,4 @@
-macro_rules! html {
-}
+macro_rules! html {}
 
 #[allow(unused_must_use)]
 fn main() {
